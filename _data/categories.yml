@@ -1,0 +1,65 @@
+- slug: ai-learning
+  name: AI 学习
+  label: Learning
+  path: /categories/ai-learning/
+  description: 模型原理、学习路线、概念拆解，把新知识整理成能反复调用的地图。
+  accent: moss
+  tags:
+    - LLM
+    - RAG
+    - Agent
+
+- slug: ai-tools
+  name: AI 工具实战
+  label: Workflow
+  path: /categories/ai-tools/
+  description: Codex、提示词、自动化、资料整理和内容生产，关注工具如何真正进入日常工作流。
+  accent: cobalt
+  tags:
+    - Codex
+    - Prompt
+    - Automation
+
+- slug: project-review
+  name: 项目复盘
+  label: Review
+  path: /categories/project-review/
+  description: 记录项目目标、方案选择、踩坑过程和可复用判断，让每次实践都留下下一次能用的经验。
+  accent: rust
+  tags:
+    - Build
+    - Debug
+    - Decision
+
+- slug: reading-notes
+  name: 阅读笔记
+  label: Reading
+  path: /categories/reading-notes/
+  description: 书、文章、论文和长访谈的整理，把别人的好问题变成自己的思考材料。
+  accent: gold
+  tags:
+    - Books
+    - Papers
+    - Essays
+
+- slug: life-notes
+  name: 生活思考
+  label: Life
+  path: /categories/life-notes/
+  description: 注意力、节奏、关系、成长和日常秩序。技术之外，也要练习把生活过清楚。
+  accent: moss
+  tags:
+    - Focus
+    - Rhythm
+    - Growth
+
+- slug: fragments
+  name: 随笔札记
+  label: Notes
+  path: /categories/fragments/
+  description: 短想法、观察和未完成的问题。它们不一定成熟，但常常是长文章的起点。
+  accent: cobalt
+  tags:
+    - Daily
+    - Ideas
+    - Questions

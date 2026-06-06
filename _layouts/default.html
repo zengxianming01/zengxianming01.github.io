@@ -105,6 +105,10 @@
         text-decoration: none;
       }
 
+      .site-nav a:hover {
+        color: var(--ink);
+      }
+
       .site-footer {
         padding: 28px 0 36px;
         border-top: 1px solid rgba(25, 32, 38, 0.14);
@@ -305,6 +309,7 @@
         margin-bottom: 28px;
       }
 
+      .section h1,
       .section h2 {
         margin-bottom: 0;
         font-size: clamp(30px, 4vw, 52px);
@@ -318,6 +323,70 @@
         line-height: 1.75;
       }
 
+      .profile-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1.16fr) minmax(320px, 0.84fr);
+        gap: 26px;
+        align-items: stretch;
+      }
+
+      .profile-photo {
+        position: relative;
+        min-height: 460px;
+        margin: 0;
+        overflow: hidden;
+        border: 1px solid rgba(25, 32, 38, 0.18);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        background: var(--ink);
+      }
+
+      .profile-photo::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background: linear-gradient(180deg, transparent 62%, rgba(25, 32, 38, 0.2));
+        pointer-events: none;
+      }
+
+      .profile-photo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 460px;
+        object-fit: cover;
+        object-position: 50% 56%;
+      }
+
+      .profile-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 460px;
+        padding: 30px;
+        background: rgba(251, 250, 245, 0.9);
+        border: 1px solid rgba(25, 32, 38, 0.14);
+        border-radius: 8px;
+        box-shadow: 0 16px 40px rgba(25, 32, 38, 0.08);
+      }
+
+      .profile-copy h2 {
+        margin-bottom: 24px;
+      }
+
+      .intro-placeholder {
+        margin-top: auto;
+        padding-top: 26px;
+        border-top: 1px solid rgba(25, 32, 38, 0.14);
+      }
+
+      .intro-placeholder p {
+        margin-bottom: 14px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.78;
+      }
+
       .share-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -325,14 +394,25 @@
       }
 
       .share-card {
+        display: flex;
+        flex-direction: column;
         min-height: 250px;
         padding: 24px;
         background: rgba(251, 250, 245, 0.86);
         border: 1px solid rgba(25, 32, 38, 0.14);
         border-radius: 8px;
         box-shadow: 0 16px 40px rgba(25, 32, 38, 0.08);
+        text-decoration: none;
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
       }
 
+      .share-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(25, 32, 38, 0.32);
+        box-shadow: 0 20px 46px rgba(25, 32, 38, 0.12);
+      }
+
+      .share-card h2,
       .share-card h3 {
         margin-bottom: 14px;
         font-size: 24px;
@@ -343,6 +423,43 @@
         margin-bottom: 22px;
         color: var(--muted);
         line-height: 1.72;
+      }
+
+      .card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 16px;
+        font-family: "Avenir Next", "PingFang SC", sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      .card-meta::after {
+        width: 12px;
+        height: 12px;
+        content: "";
+        border-radius: 50%;
+        background: var(--moss);
+      }
+
+      .share-card.accent-cobalt .card-meta::after {
+        background: var(--cobalt);
+      }
+
+      .share-card.accent-rust .card-meta::after {
+        background: var(--rust);
+      }
+
+      .share-card.accent-gold .card-meta::after {
+        background: var(--gold);
+      }
+
+      .share-card .tag-row {
+        margin-top: auto;
       }
 
       .tag-row {
@@ -359,6 +476,10 @@
         font-size: 12px;
         color: #3f4b53;
         background: #ffffffa6;
+      }
+
+      .category-tags {
+        margin-top: -28px;
       }
 
       .journal-band {
@@ -419,6 +540,201 @@
         line-height: 1.7;
       }
 
+      .post-list {
+        display: grid;
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid rgba(25, 32, 38, 0.14);
+        border-radius: 8px;
+        background: rgba(25, 32, 38, 0.14);
+      }
+
+      .post-row {
+        display: grid;
+        grid-template-columns: 140px minmax(0, 1fr) auto;
+        gap: 22px;
+        align-items: center;
+        padding: 22px;
+        background: rgba(251, 250, 245, 0.9);
+        text-decoration: none;
+      }
+
+      .post-row:hover h3 {
+        color: var(--moss);
+      }
+
+      .post-row time,
+      .post-row .post-category {
+        font-family: "Avenir Next", "PingFang SC", sans-serif;
+        font-size: 13px;
+        color: var(--rust);
+      }
+
+      .post-row h3 {
+        margin-bottom: 6px;
+        font-size: 22px;
+        transition: color 160ms ease;
+      }
+
+      .post-row p {
+        margin-bottom: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .empty-state {
+        padding: 28px;
+        color: var(--muted);
+        background: rgba(251, 250, 245, 0.9);
+        border: 1px dashed rgba(25, 32, 38, 0.24);
+        border-radius: 8px;
+        line-height: 1.75;
+      }
+
+      .index-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .index-link {
+        display: grid;
+        gap: 12px;
+        min-height: 190px;
+        padding: 24px;
+        color: var(--paper);
+        background: var(--ink);
+        border-radius: 8px;
+        text-decoration: none;
+      }
+
+      .index-link:nth-child(2) {
+        color: var(--ink);
+        background: var(--gold);
+      }
+
+      .index-link h3 {
+        margin-bottom: 0;
+        font-size: 30px;
+      }
+
+      .index-link p {
+        margin-bottom: 0;
+        color: inherit;
+        line-height: 1.72;
+        opacity: 0.82;
+      }
+
+      .article {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 52px 0 80px;
+      }
+
+      .article-header {
+        margin-bottom: 40px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgba(25, 32, 38, 0.14);
+      }
+
+      .article-header h1 {
+        margin-bottom: 18px;
+        font-size: clamp(36px, 5vw, 64px);
+        line-height: 1.12;
+      }
+
+      .article-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        font-family: "Avenir Next", "PingFang SC", sans-serif;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .article-body {
+        font-size: 18px;
+        line-height: 1.85;
+      }
+
+      .article-body h2,
+      .article-body h3 {
+        margin: 42px 0 14px;
+        line-height: 1.24;
+      }
+
+      .article-body h2 {
+        font-size: 32px;
+      }
+
+      .article-body h3 {
+        font-size: 24px;
+      }
+
+      .article-body p,
+      .article-body ul,
+      .article-body ol,
+      .article-body table,
+      .article-body pre {
+        margin-bottom: 22px;
+      }
+
+      .article-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .article-body a {
+        color: var(--cobalt);
+      }
+
+      .article-body pre {
+        overflow-x: auto;
+        padding: 18px;
+        color: var(--paper);
+        background: var(--ink);
+        border-radius: 8px;
+      }
+
+      .article-body code {
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.92em;
+      }
+
+      .article-body p code,
+      .article-body li code,
+      .article-body td code {
+        padding: 2px 5px;
+        background: rgba(25, 32, 38, 0.08);
+        border-radius: 4px;
+      }
+
+      .article-body table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        border-collapse: collapse;
+        font-size: 15px;
+      }
+
+      .article-body th,
+      .article-body td {
+        padding: 10px 12px;
+        border: 1px solid rgba(25, 32, 38, 0.14);
+        text-align: left;
+      }
+
+      .article-body th {
+        background: rgba(251, 250, 245, 0.78);
+      }
+
+      .article-body hr {
+        margin: 34px 0;
+        border: 0;
+        border-top: 1px solid rgba(25, 32, 38, 0.14);
+      }
+
       .closing {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
@@ -464,6 +780,7 @@
 
         .hero,
         .section-heading,
+        .profile-panel,
         .journal-band,
         .closing {
           grid-template-columns: 1fr;
@@ -478,7 +795,22 @@
           min-height: 430px;
         }
 
+        .profile-photo,
+        .profile-photo img,
+        .profile-copy {
+          min-height: 380px;
+        }
+
         .share-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .post-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .index-links {
           grid-template-columns: 1fr;
         }
 
@@ -509,7 +841,9 @@
         .signal-board,
         .closing,
         .journal-lead,
-        .share-card {
+        .share-card,
+        .profile-copy,
+        .article {
           padding: 20px;
         }
 
@@ -528,9 +862,10 @@
         <span>{{ site.title }}</span>
       </a>
       <nav class="site-nav" aria-label="主导航">
-        <a href="#ai-notes">AI 学习</a>
-        <a href="#life-notes">生活思考</a>
-        <a href="#start">开始阅读</a>
+        <a href="{{ '/' | relative_url }}#columns">栏目</a>
+        <a href="{{ '/' | relative_url }}#latest">最新</a>
+        <a href="{{ '/categories/' | relative_url }}">分类</a>
+        <a href="{{ '/archive/' | relative_url }}">归档</a>
       </nav>
     </header>
     <main>

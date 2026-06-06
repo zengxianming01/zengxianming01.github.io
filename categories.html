@@ -1,0 +1,59 @@
+---
+layout: default
+title: 分类
+permalink: /categories/
+---
+
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Categories</p>
+      <h1>全部分类</h1>
+    </div>
+    <p>这里是所有长期栏目的入口。新增分类时，先更新 <code>_data/categories.yml</code>，首页和分类页都会同步变化。</p>
+  </div>
+
+  <div class="share-grid">
+    {% for category in site.data.categories %}
+    <a class="share-card accent-{{ category.accent }}" id="{{ category.slug }}" href="{{ category.path | relative_url }}">
+      <div class="card-meta">{{ category.label }}</div>
+      <h2>{{ category.name }}</h2>
+      <p>{{ category.description }}</p>
+      <div class="tag-row">
+        {% for tag in category.tags %}
+        <span>{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Posts</p>
+      <h2>按分类浏览文章</h2>
+    </div>
+    <p>每篇文章的 front matter 使用 <code>category</code> 对应上面的 slug，就会出现在对应栏目里。</p>
+  </div>
+
+  {% for category in site.data.categories %}
+  {% assign category_posts = site.posts | where: "category", category.slug %}
+  <div class="journal-list" id="{{ category.slug }}-posts">
+    <article class="journal-item">
+      <time>{{ category.label }}</time>
+      <div>
+        <h3>{{ category.name }}</h3>
+        {% if category_posts.size > 0 %}
+          {% for post in category_posts %}
+          <p><a href="{{ post.url | relative_url }}">{{ post.title }}</a></p>
+          {% endfor %}
+        {% else %}
+          <p>这个栏目还没有文章。</p>
+        {% endif %}
+      </div>
+    </article>
+  </div>
+  {% endfor %}
+</section>

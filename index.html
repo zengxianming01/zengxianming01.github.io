@@ -8,11 +8,11 @@ title: 首页
     <p class="eyebrow">AI Learning / Life Notes</p>
     <h1>把 AI 学明白，也把生活<span>想清楚</span>。</h1>
     <p class="hero-copy">
-      这里记录我学习 AI 的过程、工具实践、模型观察，也放下那些关于工作、关系、阅读和日常选择的思考。不是追热点的仓库，更像一张持续更新的个人研究桌。
+      这里会慢慢长出很多文章：AI 学习、工具实践、项目复盘、阅读笔记，也放下那些关于工作、关系、注意力和日常选择的思考。首页是一张地图，不是一面塞满链接的墙。
     </p>
     <div class="hero-actions">
-      <a class="button primary" href="#ai-notes">看 AI 学习笔记</a>
-      <a class="button" href="#life-notes">读生活思考</a>
+      <a class="button primary" href="#columns">浏览长期栏目</a>
+      <a class="button" href="#latest">看最新内容</a>
     </div>
   </div>
 
@@ -20,12 +20,12 @@ title: 首页
     <div class="signal-grid"></div>
     <div class="signal-content">
       <div class="note-strip">
-        <strong>本周问题</strong>
-        <p>如何把一个新工具，从“会用”推进到“真的改变工作流”？</p>
+        <strong>首页原则</strong>
+        <p>分类可以变多，但入口要保持少而稳：主路径、近期内容、完整索引。</p>
       </div>
       <div class="signal-card">
-        <p class="eyebrow">Learning Loop</p>
-        <p>读文档、做实验、写复盘、再教给别人。理解常常不是输入的结果，而是输出时被迫长出来的结构。</p>
+        <p class="eyebrow">Content Map</p>
+        <p>先让读者知道该从哪里进入，再让他们按时间、主题或标签继续探索。首页负责导航，不负责装下全部内容。</p>
       </div>
       <div class="signal-meter" aria-hidden="true">
         <span></span>
@@ -36,104 +36,112 @@ title: 首页
   </aside>
 </section>
 
-<section class="section" id="ai-notes">
+<section class="section" id="about">
+  <div class="profile-panel">
+    <figure class="profile-photo">
+      <img src="{{ '/images/profile-intro.jpg' | relative_url }}" alt="云海山顶上的个人照片" width="1600" height="1067" loading="lazy">
+    </figure>
+
+    <div class="profile-copy">
+      <p class="eyebrow">About</p>
+      <h2>个人介绍</h2>
+      <div class="intro-placeholder">
+        <p>我是一名程序员，虽然是不经意间选择了软件行业专业，但这份工作干下来没有我想象中那么痛苦，相反在过往的几年里，学习新的技术，开发新的软件，我还能找到一些成就感；除了工作这件事上，我也有着自己的一些小爱好，摄影，徒步，旅行都是消解枯燥生活的润滑剂，最近半年沉浸在vibe coding这件事上，AI重塑了工作和生活的边界，也带来焦虑，但我相信每个人都有一个使命，那就是寻找自我，即时失业了，也未必是坏事，正好能借此探索自己真正想做的事
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="columns">
   <div class="section-heading">
     <div>
-      <p class="eyebrow">AI Notes</p>
-      <h2>学习 AI，不只收藏教程。</h2>
+      <p class="eyebrow">Main Columns</p>
+      <h2>把很多分类，收敛成几条长期路径。</h2>
     </div>
     <p>
-      我会把学习路线拆成可复用的主题：基础概念、提示词方法、智能体实践、工具链搭建，以及每一次踩坑后的具体修正。
+      后续新增文章时，先归入这些长期栏目。首页只展示方向，具体文章由分类页和归档页承接。
     </p>
   </div>
 
   <div class="share-grid">
-    <article class="share-card">
-      <h3>模型与原理</h3>
-      <p>用普通人能理解的方式整理 Transformer、Embedding、RAG、Agent 等概念，关注它们能解决什么问题，也记录它们解决不了什么。</p>
+    {% for category in site.data.categories %}
+    <a class="share-card accent-{{ category.accent }}" href="{{ category.path | relative_url }}">
+      <div class="card-meta">{{ category.label }}</div>
+      <h3>{{ category.name }}</h3>
+      <p>{{ category.description }}</p>
       <div class="tag-row">
-        <span>LLM</span>
-        <span>RAG</span>
-        <span>Agent</span>
+        {% for tag in category.tags %}
+        <span>{{ tag }}</span>
+        {% endfor %}
       </div>
-    </article>
-
-    <article class="share-card">
-      <h3>工具与工作流</h3>
-      <p>记录我如何用 AI 辅助写代码、整理资料、做自动化、生成内容，并把零散技巧沉淀成稳定流程。</p>
-      <div class="tag-row">
-        <span>Codex</span>
-        <span>Prompt</span>
-        <span>Automation</span>
-      </div>
-    </article>
-
-    <article class="share-card">
-      <h3>项目与复盘</h3>
-      <p>每做一个小项目，都尽量写清楚目标、方案、关键决策和失败点。真正有价值的不是演示成功，而是能复用判断。</p>
-      <div class="tag-row">
-        <span>Build</span>
-        <span>Debug</span>
-        <span>Review</span>
-      </div>
-    </article>
+    </a>
+    {% endfor %}
   </div>
 </section>
 
-<section class="section" id="life-notes">
+<section class="section" id="latest">
   <div class="section-heading">
     <div>
-      <p class="eyebrow">Life Notes</p>
-      <h2>技术之外，也要练习生活。</h2>
+      <p class="eyebrow">Latest</p>
+      <h2>近期内容，让首页保持活的。</h2>
     </div>
     <p>
-      AI 让很多事情变快，但人还是要慢下来做选择。我想记录那些不容易被效率指标覆盖的部分：注意力、情绪、长期主义和日常秩序。
+      有文章以后，这里会自动显示最新 5 篇。读者不用猜你的站点是否还在更新。
     </p>
   </div>
 
-  <div class="journal-band">
-    <article class="journal-lead">
-      <h3>把日子过成可复盘的实验。</h3>
-      <p>
-        不是把生活管理成表格，而是在混乱里留下一点观察能力。今天为什么烦躁，什么让我恢复能量，哪些选择在三个月后仍然值得。
-      </p>
-    </article>
-
-    <div class="journal-list">
-      <article class="journal-item">
-        <time>主题 01</time>
+  <div class="post-list">
+    {% assign latest_posts = site.posts | slice: 0, 5 %}
+    {% if latest_posts.size > 0 %}
+      {% for post in latest_posts %}
+      <a class="post-row" href="{{ post.url | relative_url }}">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
         <div>
-          <h3>注意力的边界</h3>
-          <p>如何在信息很多的时代，保留一点真正属于自己的安静时间。</p>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt | strip_html | truncate: 92 }}</p>
         </div>
-      </article>
-
-      <article class="journal-item">
-        <time>主题 02</time>
-        <div>
-          <h3>学习与焦虑</h3>
-          <p>当 AI 每天都有新东西出现，如何不被速度牵着走，而是建立自己的节奏。</p>
-        </div>
-      </article>
-
-      <article class="journal-item">
-        <time>主题 03</time>
-        <div>
-          <h3>普通日子的质感</h3>
-          <p>读书、散步、做饭、见朋友。它们看似没有产出，却常常让判断力重新变清楚。</p>
-        </div>
-      </article>
-    </div>
+        <span class="post-category">{{ post.category | default: "note" }}</span>
+      </a>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        还没有发布文章。等你在 <code>_posts/</code> 里添加文章后，这里会自动出现最新内容。
+      </div>
+    {% endif %}
   </div>
 </section>
 
 <section class="section" id="start">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Index</p>
+      <h2>完整索引，留给想深入逛的人。</h2>
+    </div>
+    <p>
+      分类页负责按主题进入，归档页负责按时间回看。首页保持清爽，深度探索交给专门页面。
+    </p>
+  </div>
+
+  <div class="index-links">
+    <a class="index-link" href="{{ '/categories/' | relative_url }}">
+      <h3>全部分类</h3>
+      <p>查看每个长期栏目的说明，以及该栏目下已经发布的文章。</p>
+    </a>
+    <a class="index-link" href="{{ '/archive/' | relative_url }}">
+      <h3>时间归档</h3>
+      <p>按发布时间浏览所有内容，适合从最近更新一路往回读。</p>
+    </a>
+  </div>
+</section>
+
+<section class="section">
   <div class="closing">
     <div>
       <p class="eyebrow">Next</p>
-      <h2>接下来，从一篇真正写完的笔记开始。</h2>
+      <h2>接下来，只需要持续往里填文章。</h2>
       <p>
-        首页先搭好骨架，后面可以继续加文章列表、分类页、归档页和订阅入口。每一篇内容都尽量回答一个真实问题，而不是堆一串漂亮标题。
+        新文章只要写好标题、日期、分类和标签，就会自动进入最新列表、分类页和归档页。结构稳住以后，内容就可以慢慢长。
       </p>
     </div>
     <div class="closing-mark" aria-hidden="true">AI</div>

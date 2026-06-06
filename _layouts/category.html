@@ -1,0 +1,58 @@
+---
+layout: default
+---
+
+{% assign current_category = nil %}
+{% for category in site.data.categories %}
+  {% if category.slug == page.category_slug %}
+    {% assign current_category = category %}
+  {% endif %}
+{% endfor %}
+{% assign category_posts = site.posts | where: "category", page.category_slug %}
+
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">{{ current_category.label | default: "Category" }}</p>
+      <h1>{{ current_category.name | default: page.title }}</h1>
+    </div>
+    <p>{{ current_category.description | default: page.description }}</p>
+  </div>
+
+  {% if current_category.tags %}
+  <div class="tag-row category-tags">
+    {% for tag in current_category.tags %}
+    <span>{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Posts</p>
+      <h2>这个分类下的文章</h2>
+    </div>
+    <p>文章会按发布时间倒序排列。点击标题即可进入文章详情页。</p>
+  </div>
+
+  <div class="post-list">
+    {% if category_posts.size > 0 %}
+      {% for post in category_posts %}
+      <a class="post-row" href="{{ post.url | relative_url }}">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+        <div>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+        </div>
+        <span class="post-category">{{ post.category | default: "note" }}</span>
+      </a>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        这个分类还没有文章。
+      </div>
+    {% endif %}
+  </div>
+</section>
