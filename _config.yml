@@ -1,0 +1,11 @@
+title: zengxianming01
+description: Personal site powered by Jekyll and GitHub Pages.
+lang: zh-CN
+
+markdown: kramdown
+permalink: pretty
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
