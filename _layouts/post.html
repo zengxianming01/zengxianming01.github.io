@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="article">
+<article class="article{% if page.article_class %} {{ page.article_class }}{% endif %}">
   <header class="article-header">
     <p class="eyebrow">{{ page.category | default: "Post" }}</p>
     <h1>{{ page.title }}</h1>
@@ -18,4 +18,3 @@ layout: default
     {{ content }}
   </div>
 </article>
-
