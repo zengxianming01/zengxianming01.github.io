@@ -15,6 +15,7 @@ source_path: "/Users/zengxianming/Documents/Obsidian Vault/wiki/AI工具/Karpath
 ---
 
 > 来源：WayToAGI 社区 · 鹏影
+> 原文链接：[waytoagi.feishu.cn](https://waytoagi.feishu.cn/wiki/EZvBw7pJ6iFxMVkeaoZc2TRdnil?from=space_search)
 
 ---
 
