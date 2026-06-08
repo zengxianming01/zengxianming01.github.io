@@ -1,4 +1,4 @@
-# zengxianming01.github.io
+# shawnming068.github.io
 
 这是一个基于 Jekyll 的个人站点，用来发布 AI 学习、AI 工具实战、项目复盘、阅读笔记和生活与思考等内容。
 
