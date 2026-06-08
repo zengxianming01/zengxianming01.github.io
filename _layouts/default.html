@@ -895,6 +895,113 @@
           margin-left: 0;
         }
       }
+      .article-body .carousel {
+        position: relative;
+        margin: 28px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #eef2ef;
+        user-select: none;
+      }
+
+      .article-body .carousel-track {
+        display: flex;
+        transition: transform 0.4s ease;
+      }
+
+      .article-body .carousel-track img {
+        display: block;
+        width: 100%;
+        flex-shrink: 0;
+        aspect-ratio: auto;
+        object-fit: contain;
+        background: #eef2ef;
+      }
+
+      .article-body .carousel-btn {
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.45);
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+
+      .article-body .carousel:hover .carousel-btn,
+      .article-body .carousel-btn:focus-visible {
+        opacity: 1;
+      }
+
+      .article-body .carousel-btn:hover {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .article-body .carousel-btn-prev {
+        left: 12px;
+      }
+
+      .article-body .carousel-btn-next {
+        right: 12px;
+      }
+
+      .article-body .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 0 16px;
+      }
+
+      .article-body .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(25, 32, 38, 0.2);
+        cursor: pointer;
+        padding: 0;
+        transition: background 0.2s;
+      }
+
+      .article-body .carousel-dot.active {
+        background: var(--ink);
+      }
+
+      .article-body .carousel-counter {
+        position: absolute;
+        bottom: 42px;
+        right: 14px;
+        z-index: 2;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-family: "Avenir Next", "PingFang SC", sans-serif;
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        pointer-events: none;
+      }
+
+      .article-body .solo-photo {
+        margin: 28px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #eef2ef;
+      }
+
+      .article-body .solo-photo img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
     </style>
   </head>
   <body>
@@ -916,5 +1023,70 @@
     <footer class="site-footer">
       <span>写给正在学习、实践、复盘的人。</span>
     </footer>
+
+    <script>
+      document.querySelectorAll('.carousel').forEach(function (el) {
+        var track = el.querySelector('.carousel-track');
+        var images = track.querySelectorAll('img');
+        var dots = el.querySelector('.carousel-dots');
+        var counter = el.querySelector('.carousel-counter');
+        var index = 0;
+        var total = images.length;
+
+        function goTo(i) {
+          if (i < 0) i = total - 1;
+          if (i >= total) i = 0;
+          index = i;
+          track.style.transform = 'translateX(-' + (index * 100) + '%)';
+          if (dots) {
+            dots.querySelectorAll('.carousel-dot').forEach(function (d, j) {
+              d.classList.toggle('active', j === index);
+            });
+          }
+          if (counter) counter.textContent = (index + 1) + ' / ' + total;
+        }
+
+        var prevBtn = el.querySelector('.carousel-btn-prev');
+        var nextBtn = el.querySelector('.carousel-btn-next');
+        if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
+
+        if (dots) {
+          dots.querySelectorAll('.carousel-dot').forEach(function (d, i) {
+            d.addEventListener('click', function () { goTo(i); });
+          });
+        }
+
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(index - 1); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1); }
+        });
+        el.setAttribute('tabindex', '0');
+
+        // autoplay
+        var autoplay = el.getAttribute('data-autoplay');
+        if (autoplay) {
+          var timer = setInterval(function () { goTo(index + 1); }, parseInt(autoplay, 10));
+          el.addEventListener('mouseenter', function () { clearInterval(timer); });
+          el.addEventListener('mouseleave', function () {
+            timer = setInterval(function () { goTo(index + 1); }, parseInt(autoplay, 10));
+          });
+        }
+
+        // touch / swipe
+        var startX = 0;
+        el.addEventListener('touchstart', function (e) {
+          startX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        el.addEventListener('touchend', function (e) {
+          var diff = startX - e.changedTouches[0].screenX;
+          if (Math.abs(diff) > 50) {
+            goTo(index + (diff > 0 ? 1 : -1));
+          }
+        }, { passive: true });
+
+        goTo(0);
+      });
+    </script>
   </body>
 </html>
