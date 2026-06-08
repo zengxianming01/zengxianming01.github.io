@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-Personal blog (Chinese, `zh-CN`) powered by Jekyll 4.4 and deployed via GitHub Pages at `zengxianming01.github.io`. Content covers AI learning notes and personal reflections on life/attention/reading.
+Personal blog (Chinese, `zh-CN`) powered by Jekyll 4.4 and deployed via GitHub Pages at `shawnming068.github.io`. Content covers AI learning notes and personal reflections on life/attention/reading.
 
 ## Commands
 
