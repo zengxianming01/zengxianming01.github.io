@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "西安小记：在古城里走一走"
-date: 2026-06-08
+date: 2026-05-04
 category: life-notes
 tags:
   - 旅行
