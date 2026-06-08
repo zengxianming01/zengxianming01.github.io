@@ -625,10 +625,158 @@
         opacity: 0.82;
       }
 
+      .article-wrapper {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 860px);
+        gap: 48px;
+        justify-content: center;
+        padding: 52px 0 0;
+        transition: grid-template-columns 250ms ease;
+      }
+
+      .article-wrapper.toc-collapsed {
+        grid-template-columns: 32px minmax(0, 860px);
+        gap: 20px;
+      }
+
+      .article-wrapper .article {
+        max-width: none;
+        margin: 0;
+        padding: 0 0 80px;
+      }
+
+      .article-wrapper.no-toc {
+        grid-template-columns: minmax(0, 860px);
+        padding: 52px 0 0;
+      }
+
+      .article-wrapper.no-toc .article {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 0 80px;
+      }
+
       .article {
         max-width: 860px;
         margin: 0 auto;
         padding: 52px 0 80px;
+      }
+
+      .article-toc {
+        position: sticky;
+        top: 24px;
+        align-self: start;
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        font-family: "Avenir Next", "PingFang SC", sans-serif;
+        font-size: 13px;
+        padding-right: 7px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--line) transparent;
+        transition: width 250ms ease;
+      }
+
+      .article-toc.collapsed {
+        overflow: hidden;
+        padding-right: 0;
+      }
+
+      .article-toc.collapsed .toc-nav {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 150ms ease, visibility 0ms 150ms;
+      }
+
+      .toc-nav {
+        transition: opacity 150ms ease, visibility 0ms 0ms;
+      }
+
+      .toc-toggle {
+        display: flex;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: var(--paper);
+        color: var(--muted);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        transition: color 160ms, border-color 160ms;
+      }
+
+      .toc-toggle:hover {
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .toc-toggle svg {
+        transition: transform 250ms ease;
+      }
+
+      .article-toc.collapsed .toc-toggle {
+        position: static;
+        margin-bottom: 0;
+      }
+
+      .article-toc.collapsed .toc-toggle svg {
+        transform: rotate(180deg);
+      }
+
+      .article-toc:not(.collapsed) .toc-toggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      .toc-title {
+        margin: 0 0 14px 0;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .toc-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .toc-list li + li {
+        margin-top: 1px;
+      }
+
+      .toc-list a {
+        display: block;
+        padding: 4px 0 4px 12px;
+        color: var(--muted);
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        line-height: 1.45;
+        transition: color 160ms, border-color 160ms;
+      }
+
+      .toc-list a:hover {
+        color: var(--ink);
+        border-left-color: var(--line);
+      }
+
+      .toc-list a.active {
+        color: var(--ink);
+        border-left-color: var(--moss);
+        font-weight: 600;
+      }
+
+      .toc-list a.toc-h3 {
+        padding-left: 24px;
+        font-size: 12px;
       }
 
       .article-header {
@@ -688,6 +836,35 @@
       .article-body a {
         color: var(--cobalt);
       }
+
+      /* Rouge syntax highlighting (Monokai) */
+      .article-body .highlight { color:#f8f8f2; background:var(--ink); border-radius:8px; }
+      .article-body .highlight .c, .article-body .highlight .ch, .article-body .highlight .cd,
+      .article-body .highlight .cpf, .article-body .highlight .cm, .article-body .highlight .c1 { color:#75715e; font-style:italic; }
+      .article-body .highlight .cp { color:#75715e; font-weight:bold; }
+      .article-body .highlight .cs { color:#75715e; font-weight:bold; font-style:italic; }
+      .article-body .highlight .k, .article-body .highlight .kv, .article-body .highlight .kc,
+      .article-body .highlight .highlight .kd, .article-body .highlight .kp,
+      .article-body .highlight .kr, .article-body .highlight .kt { color:#66d9ef; font-weight:bold; }
+      .article-body .highlight .kn, .article-body .highlight .ow, .article-body .highlight .o { color:#f92672; font-weight:bold; }
+      .article-body .highlight .s, .article-body .highlight .dl, .article-body .highlight .sb,
+      .article-body .highlight .sc, .article-body .highlight .sd, .article-body .highlight .s2,
+      .article-body .highlight .sh, .article-body .highlight .si, .article-body .highlight .sx,
+      .article-body .highlight .sr, .article-body .highlight .s1, .article-body .highlight .ss { color:#e6db74; }
+      .article-body .highlight .sa { color:#66d9ef; font-weight:bold; }
+      .article-body .highlight .se { color:#ae81ff; }
+      .article-body .highlight .m, .article-body .highlight .mb, .article-body .highlight .mx,
+      .article-body .highlight .mf, .article-body .highlight .mh, .article-body .highlight .il,
+      .article-body .highlight .mi, .article-body .highlight .mo { color:#ae81ff; }
+      .article-body .highlight .na { color:#a6e22e; }
+      .article-body .highlight .nc, .article-body .highlight .nd, .article-body .highlight .ne,
+      .article-body .highlight .nf, .article-body .highlight .fm { color:#a6e22e; font-weight:bold; }
+      .article-body .highlight .no { color:#66d9ef; }
+      .article-body .highlight .bp, .article-body .highlight .nb, .article-body .highlight .ni,
+      .article-body .highlight .nn, .article-body .highlight .vc, .article-body .highlight .vg,
+      .article-body .highlight .vi, .article-body .highlight .nv, .article-body .highlight .vm,
+      .article-body .highlight .w, .article-body .highlight .nl { color:#f8f8f2; }
+      .article-body .highlight .nt { color:#f92672; }
 
       .article-body pre {
         overflow-x: auto;
@@ -795,6 +972,16 @@
         border-radius: 50%;
         font-family: "Avenir Next", "PingFang SC", sans-serif;
         font-weight: 900;
+      }
+
+      @media (max-width: 1024px) {
+        .article-wrapper {
+          grid-template-columns: 1fr;
+        }
+
+        .article-toc {
+          display: none;
+        }
       }
 
       @media (max-width: 860px) {
@@ -1002,6 +1189,7 @@
         width: 100%;
         height: auto;
       }
+      .text-rust { color: var(--rust); }
     </style>
   </head>
   <body>

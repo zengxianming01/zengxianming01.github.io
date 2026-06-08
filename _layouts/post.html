@@ -2,22 +2,104 @@
 layout: default
 ---
 
-<article class="article{% if page.article_class %} {{ page.article_class }}{% endif %}">
-  <header class="article-header">
-    <p class="eyebrow">{{ page.category | default: "Post" }}</p>
-    <h1>{{ page.title }}</h1>
-    <div class="article-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
-      {% if page.tags %}
-      <span>{{ page.tags | join: " / " }}</span>
-      {% endif %}
-    </div>
-  </header>
+<div class="article-wrapper">
+  <aside class="article-toc">
+    <button class="toc-toggle" aria-label="收起目录" title="收起目录">
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M4 2 L8 6 L4 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="toc-nav">
+      <p class="toc-title">目录</p>
+      <ul class="toc-list"></ul>
+    </nav>
+  </aside>
 
-  <div class="article-body">
-    {{ content }}
-  </div>
-</article>
+  <article class="article{% if page.article_class %} {{ page.article_class }}{% endif %}">
+    <header class="article-header">
+      <p class="eyebrow">{{ page.category | default: "Post" }}</p>
+      <h1>{{ page.title }}</h1>
+      <div class="article-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
+        {% if page.tags %}
+        <span>{{ page.tags | join: " / " }}</span>
+        {% endif %}
+      </div>
+    </header>
+
+    <div class="article-body">
+      {{ content }}
+    </div>
+  </article>
+</div>
+
+<script>
+(function () {
+  var list = document.querySelector('.toc-list');
+  var aside = document.querySelector('.article-toc');
+  if (!list || !aside) return;
+
+  var headings = document.querySelectorAll('.article-body h2, .article-body h3');
+  if (!headings.length) {
+    aside.style.display = 'none';
+    var wrapper = document.querySelector('.article-wrapper');
+    if (wrapper) wrapper.classList.add('no-toc');
+    return;
+  }
+
+  headings.forEach(function (h, i) {
+    if (!h.id) h.id = 'toc-' + i;
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent;
+    if (h.tagName === 'H3') a.className = 'toc-h3';
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
+  var links = list.querySelectorAll('a');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var a = list.querySelector('a[href="#' + e.target.id + '"]');
+      if (!a) return;
+      if (e.isIntersecting) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+
+  headings.forEach(function (h) { observer.observe(h); });
+
+  // Collapse / expand toggle with localStorage
+  var toggle = document.querySelector('.toc-toggle');
+  var wrapper = document.querySelector('.article-wrapper');
+  var KEY = 'toc-collapsed';
+
+  function setCollapsed(c) {
+    if (c) {
+      aside.classList.add('collapsed');
+      if (wrapper) wrapper.classList.add('toc-collapsed');
+      toggle.setAttribute('aria-label', '展开目录');
+      toggle.title = '展开目录';
+    } else {
+      aside.classList.remove('collapsed');
+      if (wrapper) wrapper.classList.remove('toc-collapsed');
+      toggle.setAttribute('aria-label', '收起目录');
+      toggle.title = '收起目录';
+    }
+  }
+
+  // Restore state
+  var saved = localStorage.getItem(KEY);
+  if (saved === 'true') setCollapsed(true);
+
+  toggle.addEventListener('click', function () {
+    var isCollapsed = aside.classList.contains('collapsed');
+    setCollapsed(!isCollapsed);
+    localStorage.setItem(KEY, !isCollapsed);
+  });
+})();
+</script>
 
 {% if page.comments != false %}
 <section style="max-width:860px;margin:0 auto;padding:48px 0;">
