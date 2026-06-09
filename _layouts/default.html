@@ -819,7 +819,11 @@
         font-size: 24px;
       }
 
-      .article-body p,
+      .article-body p {
+        margin-bottom: 22px;
+        text-indent: 2em;
+      }
+
       .article-body ul,
       .article-body ol,
       .article-body table,
@@ -1189,6 +1193,27 @@
         width: 100%;
         height: auto;
       }
+
+      .article-body .photo-half {
+        max-width: 50%;
+        margin: 28px auto;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #eef2ef;
+      }
+
+      .article-body .photo-half img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      @media (max-width: 860px) {
+        .article-body .photo-half {
+          max-width: 80%;
+        }
+      }
+
       .text-rust { color: var(--rust); }
     </style>
   </head>
